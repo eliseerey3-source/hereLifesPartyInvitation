@@ -1,1 +1,112 @@
-#code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>the post mortem</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: black;
+      color: white;
+      overflow: hidden;
+      height: 100vh;
+      cursor: pointer;
+    }
+
+    .screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+      opacity: 0;
+      transition: opacity 1s ease;
+      font-size: 2rem;
+      letter-spacing: 2px;
+    }
+
+    .active {
+      opacity: 1;
+    }
+
+    .small {
+      font-size: 1rem;
+      opacity: 0.7;
+      margin-top: 20px;
+    }
+
+    .final {
+      flex-direction: column;
+      gap: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="screen active">
+  <div>
+    after prolonged suffering...
+  </div>
+</div>
+
+<div class="screen">
+  <div>
+    she finally let go.
+  </div>
+</div>
+
+<div class="screen">
+  <div>
+    unfortunately
+  </div>
+</div>
+
+<div class="screen">
+  <div>
+    she survived.
+  </div>
+</div>
+
+<div class="screen final">
+  <div>
+    THE POST MORTEM
+  </div>
+
+  <div class="small">
+    june 6 • 10pm<br>
+    black attire encouraged<br>
+    emotional stability discouraged
+  </div>
+</div>
+
+<script>
+  const screens = document.querySelectorAll(".screen");
+  let current = 0;
+
+  document.body.addEventListener("click", () => {
+    screens[current].classList.remove("active");
+
+    current++;
+
+    if (current >= screens.length) {
+      current = screens.length - 1;
+    }
+
+    screens[current].classList.add("active");
+  });
+</script>
+
+</body>
+</html>
