@@ -1,253 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Long Awaited Function</title>
-  <style>
-    body {
-      margin: 0;
-      background: #050505;
-      color: white;
-      font-family: "Courier New", monospace;
-      overflow: hidden;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Long Awaited Function</title>
 
-    .screen {
-      display: none;
-      height: 100vh;
-      width: 100vw;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      padding: 30px;
-      box-sizing: border-box;
-    }
+<style>
 
-    .active {
-      display: flex;
-    }
+body{
+margin:0;
+background:#050505;
+color:white;
+font-family:"Courier New", monospace;
+overflow:hidden;
+}
 
-    .terminal-text {
-      font-size: 1.4rem;
-      letter-spacing: 2px;
-      min-height: 40px;
-    }
+.screen{
+display:none;
+height:100vh;
+width:100vw;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+padding:30px;
+box-sizing:border-box;
+}
 
-    input {
-      margin-top: 25px;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid #8b0000;
-      color: white;
-      padding: 12px;
-      font-size: 1rem;
-      text-align: center;
-      outline: none;
-      width: 250px;
-    }
+.active{
+display:flex;
+}
 
-    button {
-      margin-top: 25px;
-      background: transparent;
-      color: white;
-      border: 1px solid #8b0000;
-      padding: 12px 24px;
-      letter-spacing: 2px;
-      cursor: pointer;
-    }
+.terminal-text{
+font-size:1.4rem;
+letter-spacing:2px;
+min-height:40px;
+}
 
-    .flash {
-      position: fixed;
-      inset: 0;
-      background: white;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 999;
-    }
+input{
+margin-top:25px;
+background:transparent;
+border:none;
+border-bottom:1px solid #8b0000;
+color:white;
+padding:12px;
+font-size:1rem;
+text-align:center;
+outline:none;
+width:250px;
+}
 
-    .flash.activeFlash {
-      animation: flash 0.8s ease;
-    }
+button{
+margin-top:25px;
+background:transparent;
+color:white;
+border:1px solid #8b0000;
+padding:12px 24px;
+letter-spacing:2px;
+cursor:pointer;
+transition:.3s;
+}
 
-    @keyframes flash {
-      0% { opacity: 0; }
-      20% { opacity: 1; }
-      100% { opacity: 0; }
-    }
+button:hover{
+background:#8b0000;
+}
 
-    .ceremony {
-      font-family: Georgia, serif;
-      background: radial-gradient(circle, #160307, #050505 65%);
-      position: relative;
-    }
+.flash{
+position:fixed;
+inset:0;
+background:white;
+opacity:0;
+pointer-events:none;
+z-index:999;
+}
 
-    .rose {
-      position: absolute;
-      font-size: 2rem;
-      opacity: 0.12;
-      animation: fall 10s linear infinite;
-    }
+.flash.activeFlash{
+animation:flash .8s ease;
+}
 
-    @keyframes fall {
-      from { transform: translateY(-120vh) rotate(0deg); }
-      to { transform: translateY(120vh) rotate(360deg); }
-    }
+@keyframes flash{
+0%{opacity:0;}
+20%{opacity:1;}
+100%{opacity:0;}
+}
 
-    .line {
-      font-size: 1.7rem;
-      margin: 12px 0;
-      opacity: 0;
-      animation: fadeIn 1.8s forwards;
-    }
+.ceremony{
+font-family:Georgia, serif;
+background:radial-gradient(circle,#190508,#050505 70%);
+position:relative;
+}
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+.rose{
+position:absolute;
+font-size:2rem;
+opacity:.12;
+animation:fall 12s linear infinite;
+}
 
-    h1 {
-      font-size: 2.8rem;
-      letter-spacing: 4px;
-      margin-bottom: 10px;
-    }
+@keyframes fall{
+from{
+transform:translateY(-120vh) rotate(0deg);
+}
+to{
+transform:translateY(120vh) rotate(360deg);
+}
+}
 
-    .subtitle {
-      color: #b23a48;
-      font-style: italic;
-      margin-bottom: 40px;
-    }
+.line{
+font-size:1.5rem;
+margin:10px 0;
+opacity:0;
+animation:fadeIn 2s forwards;
+max-width:700px;
+}
 
-    .details {
-      line-height: 2;
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-    }
+@keyframes fadeIn{
+to{
+opacity:1;
+}
+}
 
-    .rsvp button {
-      display: block;
-      width: 90%;
-      max-width: 370px;
-      margin: 14px auto;
-      font-family: Georgia, serif;
-    }
+h1{
+font-size:3rem;
+letter-spacing:4px;
+margin-bottom:10px;
+}
 
-    .tiny {
-      margin-top: 25px;
-      opacity: 0.5;
-      font-size: 0.8rem;
-    }
-  </style>
+.subtitle{
+font-style:italic;
+color:#b23a48;
+margin-bottom:35px;
+}
+
+.details{
+line-height:2;
+font-size:1.1rem;
+letter-spacing:1px;
+}
+
+.tiny{
+margin-top:30px;
+opacity:0;
+font-size:.8rem;
+animation:fadeIn 2s forwards;
+animation-delay:12s;
+cursor:pointer;
+}
+
+.rsvp button{
+display:block;
+width:90%;
+max-width:380px;
+margin:12px auto;
+}
+
+</style>
 </head>
 
 <body>
-  <div class="flash" id="flash"></div>
 
-  <section class="screen active" id="screen1">
-    <div class="terminal-text" id="identityText"></div>
-    <input id="nameInput" placeholder="state your name" />
-    <button onclick="confirmIdentity()">ENTER</button>
-  </section>
+<div class="flash" id="flash"></div>
 
-  <section class="screen" id="screen2">
-    <div class="terminal-text" id="confirmText"></div>
-  </section>
+<!-- SCREEN 1 -->
 
-  <section class="screen ceremony" id="screen3">
-    <div class="rose" style="left:10%; animation-delay:0s;">🥀</div>
-    <div class="rose" style="left:50%; animation-delay:3s;">🥀</div>
-    <div class="rose" style="left:80%; animation-delay:6s;">🥀</div>
+<section class="screen active" id="screen1">
 
-    <div class="line" style="animation-delay:0.5s;">some things deserve funerals.</div>
-    <div class="line" style="animation-delay:2.5s;">some deserve celebrations.</div>
-    <div class="line" style="animation-delay:4.5s;">this one deserves both.</div>
+<div class="terminal-text" id="identityText"></div>
 
-    <div class="tiny" style="animation-delay:6s;" onclick="goToTitle()">click to continue</div>
-  </section>
+<input placeholder="state your name" id="nameInput"/>
 
-  <section class="screen ceremony" id="screen4">
-    <h1>THE LONG AWAITED FUNCTION</h1>
-    <div class="subtitle">finally.</div>
+<button onclick="confirmIdentity()">
+ENTER
+</button>
 
-    <div class="details">
-      DATE: JUNE 27TH<br>
-      INITIAL GATHERING LOCATION: ELISE'S HOUSE<br>
-      THE EVENING WILL CONTINUE ELSEWHERE.<br><br>
-      DRESS CODE: ALL BLACK<br>
-      bonus points for headscarves.
-    </div>
+</section>
 
-    <button onclick="goToRSVP()">RSVP</button>
-  </section>
+<!-- SCREEN 2 -->
 
-  <section class="screen ceremony rsvp" id="screen5">
-    <h1>RSVP</h1>
-    <button onclick="response('attendance')">I WILL BE IN ATTENDANCE</button>
-    <button onclick="response('uncertain')">THE OUTCOME REMAINS UNCERTAIN</button>
-    <button onclick="response('absent')">I CANNOT BE PRESENT FOR THE CEREMONY</button>
-    <div id="responseText" class="tiny"></div>
-  </section>
+<section class="screen" id="screen2">
 
-  <script>
-    const identityText = document.getElementById("identityText");
-    const confirmText = document.getElementById("confirmText");
+<div class="terminal-text" id="confirmText"></div>
 
-    function typeText(element, text, speed = 55, callback) {
-      element.innerHTML = "";
-      let i = 0;
-      const interval = setInterval(() => {
-        element.innerHTML += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-          clearInterval(interval);
-          if (callback) callback();
-        }
-      }, speed);
-    }
+</section>
 
-    typeText(identityText, "IDENTITY REQUIRED");
+<!-- SCREEN 3 -->
 
-    function confirmIdentity() {
-      document.getElementById("screen1").classList.remove("active");
-      document.getElementById("screen2").classList.add("active");
+<section class="screen ceremony" id="screen3">
 
-      typeText(confirmText, "identity confirmed.", 55, () => {
-        setTimeout(() => {
-          typeText(confirmText, "access granted.", 55, () => {
-            setTimeout(() => {
-              document.getElementById("flash").classList.add("activeFlash");
+<div class="rose" style="left:10%">🥀</div>
+<div class="rose" style="left:40%; animation-delay:3s;">🥀</div>
+<div class="rose" style="left:75%; animation-delay:6s;">🥀</div>
 
-              setTimeout(() => {
-                document.getElementById("screen2").classList.remove("active");
-                document.getElementById("screen3").classList.add("active");
-              }, 400);
-            }, 800);
-          });
-        }, 700);
-      });
-    }
+<div class="line" style="animation-delay:.5s;">
+after months of warnings...
+</div>
 
-    function goToTitle() {
-      document.getElementById("screen3").classList.remove("active");
-      document.getElementById("screen4").classList.add("active");
-    }
+<div class="line" style="animation-delay:2.5s;">
+several group chat interventions...
+</div>
 
-    function goToRSVP() {
-      document.getElementById("screen4").classList.remove("active");
-      document.getElementById("screen5").classList.add("active");
-    }
+<div class="line" style="animation-delay:4.5s;">
+and one deeply avoidable era...
+</div>
 
-    function response(choice) {
-      const text = document.getElementById("responseText");
+<div class="line" style="animation-delay:6.5s;">
+eli is gone.
+</div>
 
-      if (choice === "attendance") {
-        text.innerHTML = "excellent. your presence has been recorded.";
-      } else if (choice === "uncertain") {
-        text.innerHTML = "understood. the committee awaits your final decision.";
-      } else {
-        text.innerHTML = "regrettable. your absence will be noted.";
-      }
-    }
-  </script>
+<div class="line" style="animation-delay:8.5s;">
+and frankly...
+</div>
+
+<div class="line" style="animation-delay:10.5s;">
+we have all been waiting for this day.
+</div>
+
+<div class="tiny" onclick="goToTitle()">
+click to continue
+</div>
+
+</section>
+
+<!-- SCREEN 4 -->
+
+<section class="screen ceremony" id="screen4">
+
+<h1>
+THE LONG AWAITED FUNCTION
+</h1>
+
+<div class="subtitle">
+an apology party for not listening sooner.
+</div>
+
+<div class="details">
+
+DATE: JUNE 27TH
+<br><br>
+
+INITIAL GATHERING LOCATION:
+ELISE'S HOUSE
+
+<br><br>
+
+THE EVENING WILL CONTINUE ELSEWHERE.
+
+<br><br>
+
+DRESS CODE:
+ALL BLACK
+
+<br>
+
+bonus points for headscarves.
+
+</div>
+
+<button onclick="goToRSVP()">
+RSVP
+</button>
+
+</section>
+
+<!-- SCREEN 5 -->
+
+<section class="screen ceremony rsvp" id="screen5">
+
+<h1>RSVP</h1>
+
+<button onclick="response('yes')">
+I WILL BE IN ATTENDANCE
+</button>
+
+<button onclick="response('maybe')">
+THE OUTCOME REMAINS UNCERTAIN
+</button>
+
+<button onclick="response('no')">
+I CANNOT BE PRESENT FOR THE CEREMONY
+</button>
+
+<div id="responseText" class="tiny" style="animation:none; opacity:1;"></div>
+
+</section>
+
+<script>
+
+const identityText =
+document.getElementById("identityText");
+
+const confirmText =
+document.getElementById("confirmText");
+
+function typeText(el,text,speed=55,callback){
+
+el.innerHTML="";
+
+let i=0;
+
+const interval=setInterval(()=>{
+
+el.innerHTML += text.charAt(i);
+
+i++;
+
+if(i>=text.length){
+
+clearInterval(interval);
+
+if(callback) callback();
+
+}
+
+},speed);
+
+}
+
+typeText(identityText,"IDENTITY REQUIRED");
+
+function confirmIdentity(){
+
+document.getElementById("screen1")
+.classList.remove("active");
+
+document.getElementById("screen2")
+.classList.add("active");
+
+typeText(confirmText,"identity confirmed.",55,()=>{
+
+setTimeout(()=>{
+
+typeText(confirmText,"access granted.",55,()=>{
+
+setTimeout(()=>{
+
+document.getElementById("flash")
+.classList.add("activeFlash");
+
+setTimeout(()=>{
+
+document.getElementById("screen2")
+.classList.remove("active");
+
+document.getElementById("screen3")
+.classList.add("active");
+
+},400);
+
+},900);
+
+});
+
+},700);
+
+});
+
+}
+
+function goToTitle(){
+
+document.getElementById("screen3")
+.classList.remove("active");
+
+document.getElementById("screen4")
+.classList.add("active");
+
+}
+
+function goToRSVP(){
+
+document.getElementById("screen4")
+.classList.remove("active");
+
+document.getElementById("screen5")
+.classList.add("active");
+
+}
+
+function response(choice){
+
+const text =
+document.getElementById("responseText");
+
+if(choice==="yes"){
+
+text.innerHTML =
+"excellent. your presence has been recorded.";
+
+}
+
+else if(choice==="maybe"){
+
+text.innerHTML =
+"understood. the committee awaits your decision.";
+
+}
+
+else{
+
+text.innerHTML =
+"regrettable. your absence will be noted.";
+
+}
+
+}
+
+</script>
+
 </body>
 </html>
