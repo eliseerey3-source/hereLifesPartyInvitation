@@ -7,27 +7,133 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#050505;color:white;overflow:hidden;font-family:"Courier New",monospace}
-.screen{display:none;height:100vh;width:100vw;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:30px}
-.active{display:flex}
-button{margin-top:28px;background:transparent;color:white;border:1px solid currentColor;padding:12px 24px;letter-spacing:2px;cursor:pointer}
-input{margin-top:25px;background:transparent;border:none;border-bottom:1px solid #8b0000;color:white;padding:12px;font-size:1rem;text-align:center;outline:none;width:250px}
-.terminal{font-size:1.35rem;letter-spacing:2px;min-height:40px}
-.flash{position:fixed;inset:0;background:white;opacity:0;pointer-events:none;z-index:999}
-.flash.on{animation:flash .8s ease}
-@keyframes flash{0%{opacity:0}20%{opacity:1}100%{opacity:0}}
 
-.dark{background:radial-gradient(circle,#1a0308,#050505 70%);font-family:Georgia,serif}
-.line{font-size:1.45rem;margin:10px 0;opacity:0;animation:fade 1.5s forwards;max-width:720px}
+body{
+margin:0;
+background:#050505;
+color:white;
+overflow:hidden;
+font-family:"Courier New",monospace;
+}
+
+.screen{
+display:none;
+height:100vh;
+width:100vw;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+padding:30px;
+}
+
+.active{display:flex}
+
+button{
+position:relative;
+z-index:10;
+margin-top:28px;
+background:transparent;
+color:white;
+border:1px solid currentColor;
+padding:12px 24px;
+letter-spacing:2px;
+cursor:pointer;
+}
+
+input{
+margin-top:25px;
+background:transparent;
+border:none;
+border-bottom:1px solid #8b0000;
+color:white;
+padding:12px;
+font-size:1rem;
+text-align:center;
+outline:none;
+width:250px;
+}
+
+.terminal{
+font-size:1.35rem;
+letter-spacing:2px;
+min-height:40px;
+}
+
+.flash{
+position:fixed;
+inset:0;
+background:white;
+opacity:0;
+pointer-events:none;
+z-index:999;
+}
+
+.flash.on{animation:flash .8s ease}
+
+@keyframes flash{
+0%{opacity:0}
+20%{opacity:1}
+100%{opacity:0}
+}
+
+.dark{
+background:radial-gradient(circle,#1a0308,#050505 70%);
+font-family:Georgia,serif;
+}
+
+.line{
+font-size:1.45rem;
+margin:10px 0;
+opacity:0;
+animation:fade 1.5s forwards;
+max-width:720px;
+}
+
 @keyframes fade{to{opacity:1}}
 
-.status-box{border:1px solid #8b0000;padding:32px;width:90%;max-width:620px;background:rgba(0,0,0,.5)}
-.status-label{font-family:"Courier New",monospace;color:#b23a48;letter-spacing:3px;font-size:.8rem;margin-bottom:25px}
-.status-main{font-size:2.6rem;letter-spacing:3px;margin-bottom:18px}
-.status-sub{font-style:italic;color:#d9b8bd}
+.status-box{
+border:1px solid #8b0000;
+padding:32px;
+width:90%;
+max-width:620px;
+background:rgba(0,0,0,.5);
+}
 
-.loading-bar{margin-top:35px;width:280px;height:8px;border:1px solid #8b0000;overflow:hidden}
-.loading-fill{height:100%;width:0;background:#8b0000;animation:load 2.5s forwards}
+.status-label{
+font-family:"Courier New",monospace;
+color:#b23a48;
+letter-spacing:3px;
+font-size:.8rem;
+margin-bottom:25px;
+}
+
+.status-main{
+font-size:2.6rem;
+letter-spacing:3px;
+margin-bottom:18px;
+}
+
+.status-sub{
+font-style:italic;
+color:#d9b8bd;
+}
+
+.loading-bar{
+margin-top:35px;
+width:280px;
+height:8px;
+border:1px solid #8b0000;
+overflow:hidden;
+}
+
+.loading-fill{
+height:100%;
+width:0;
+background:#8b0000;
+animation:load 2.5s forwards;
+}
+
 @keyframes load{to{width:100%}}
 
 .rave{
@@ -39,25 +145,125 @@ font-family:Arial,Helvetica,sans-serif;
 position:relative;
 overflow:hidden;
 }
+
 .rave::before{
 content:"";
 position:absolute;
 inset:0;
-background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+background-image:
+linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
 background-size:35px 35px;
 opacity:.25;
+pointer-events:none;
 }
-.sparkle{position:absolute;font-size:1.4rem;animation:float 5s infinite ease-in-out;opacity:.8}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-25px)}}
 
-.photo-card{width:230px;height:280px;background:white;padding:10px 10px 35px;transform:rotate(-4deg);box-shadow:0 15px 40px rgba(0,0,0,.55);z-index:2}
-.photo-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#ff2fb3,#00e5ff);display:flex;align-items:center;justify-content:center;padding:20px;font-size:.8rem}
-.speech{z-index:2;background:white;color:#150014;max-width:430px;padding:25px;border-radius:24px;text-align:left;line-height:1.55;box-shadow:0 15px 40px rgba(0,0,0,.45);margin-top:25px}
-.neon-title{z-index:2;font-size:2.8rem;letter-spacing:3px;text-shadow:0 0 12px #ff2fb3,0 0 28px #00e5ff;margin-bottom:10px}
-.neon-subtitle{z-index:2;font-style:italic;color:#ffb3ec;margin-bottom:35px}
-.details{z-index:2;line-height:2;font-size:1.05rem;letter-spacing:1px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.25);padding:25px;max-width:540px}
-.rsvp button{display:block;width:90%;max-width:390px;margin:12px auto}
-.tiny{margin-top:28px;opacity:.75;font-size:.85rem;cursor:pointer;z-index:2}
+.sparkle{
+position:absolute;
+font-size:1.4rem;
+animation:float 5s infinite ease-in-out;
+opacity:.8;
+z-index:1;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-25px)}
+}
+
+.photo-card{
+width:230px;
+height:280px;
+background:white;
+padding:10px 10px 35px;
+transform:rotate(-4deg);
+box-shadow:0 15px 40px rgba(0,0,0,.55);
+z-index:2;
+}
+
+.photo-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.speech{
+z-index:2;
+background:white;
+color:#150014;
+max-width:430px;
+min-height:360px;
+padding:25px;
+border-radius:24px;
+text-align:left;
+line-height:1.55;
+box-shadow:0 15px 40px rgba(0,0,0,.45);
+margin-top:25px;
+}
+
+#speechText{
+min-height:260px;
+}
+
+#dramaticLine{
+margin-top:18px;
+font-size:1.45rem;
+font-weight:bold;
+letter-spacing:1px;
+opacity:0;
+text-align:center;
+}
+
+#dramaticLine.show{
+animation:dramaticFade 1.5s forwards;
+}
+
+@keyframes dramaticFade{
+from{opacity:0;transform:scale(.92)}
+to{opacity:1;transform:scale(1)}
+}
+
+.neon-title{
+z-index:2;
+font-size:2.8rem;
+letter-spacing:3px;
+text-shadow:0 0 12px #ff2fb3,0 0 28px #00e5ff;
+margin-bottom:10px;
+}
+
+.neon-subtitle{
+z-index:2;
+font-style:italic;
+color:#ffb3ec;
+margin-bottom:35px;
+}
+
+.details{
+z-index:2;
+line-height:2;
+font-size:1.05rem;
+letter-spacing:1px;
+background:rgba(0,0,0,.45);
+border:1px solid rgba(255,255,255,.25);
+padding:25px;
+max-width:540px;
+}
+
+.rsvp button{
+display:block;
+width:90%;
+max-width:390px;
+margin:12px auto;
+}
+
+.tiny{
+margin-top:28px;
+opacity:.75;
+font-size:.85rem;
+cursor:pointer;
+z-index:2;
+}
 
 @media(min-width:750px){
 .friend-screen{flex-direction:row;gap:45px}
@@ -70,29 +276,25 @@ opacity:.25;
 
 <div class="flash" id="flash"></div>
 
-<!-- SCREEN 1: ACCESS TERMINAL -->
 <section class="screen active" id="screen1">
   <div class="terminal" id="identityText"></div>
   <input id="nameInput" placeholder="state your name" />
   <button onclick="confirmIdentity()">ENTER</button>
 </section>
 
-<!-- SCREEN 2: IDENTITY CONFIRMED -->
 <section class="screen" id="screen2">
   <div class="terminal" id="confirmText"></div>
 </section>
 
-<!-- SCREEN 3: OFFICIAL INVESTIGATION -->
 <section class="screen dark" id="screen3">
   <div class="line" style="animation-delay:.5s">after extensive review...</div>
   <div class="line" style="animation-delay:2.3s">multiple witness statements...</div>
   <div class="line" style="animation-delay:4.1s">and months of public concern...</div>
   <div class="line" style="animation-delay:5.9s">the era has officially ended.</div>
   <div class="line" style="animation-delay:7.7s">collective celebration may now begin.</div>
-  <button style="animation-delay:9.5s" onclick="goTo('screen3','screen4')">CONTINUE</button>
+  <button onclick="goTo('screen3','screen4')">CONTINUE</button>
 </section>
 
-<!-- SCREEN 4: STATUS UPDATE -->
 <section class="screen dark" id="screen4">
   <div class="status-box">
     <div class="status-label">STATUS UPDATE</div>
@@ -102,14 +304,12 @@ opacity:.25;
   <button onclick="goTo('screen4','screen5')">CONTINUE</button>
 </section>
 
-<!-- SCREEN 5: INITIATING CELEBRATIONS -->
 <section class="screen dark" id="screen5">
   <div class="terminal">INITIATING CELEBRATIONS...</div>
   <div class="loading-bar"><div class="loading-fill"></div></div>
-  <button onclick="flashGoTo('screen5','screen6')">CONTINUE</button>
+  <button onclick="flashGoTo('screen5','screen6'); setTimeout(typeSpeech,500);">CONTINUE</button>
 </section>
 
-<!-- SCREEN 6: YOU TALKING TO FRIEND -->
 <section class="screen rave friend-screen" id="screen6">
   <div class="sparkle" style="left:12%;top:18%">✦</div>
   <div class="sparkle" style="right:14%;top:22%;animation-delay:1s">★</div>
@@ -117,22 +317,17 @@ opacity:.25;
   <div class="sparkle" style="right:20%;bottom:16%;animation-delay:3s">✧</div>
 
   <div class="photo-card">
-    <div class="photo-placeholder">add photo of you here</div>
+    <img src="IMG_2912.HEIC" alt="Elise">
   </div>
 
   <div class="speech">
-    hey :)<br><br>
-    i really appreciate how patient you were with me through... all of that.<br><br>
-    as many of you know, this has been a very long era.<br><br>
-    to celebrate surviving it — and finally listening — i’m throwing a party with all my favorite people.<br><br>
-    and yes.<br><br>
-    you were right.
+    <div id="speechText"></div>
+    <div id="dramaticLine"></div>
   </div>
 
   <button onclick="goTo('screen6','screen7')">CONTINUE</button>
 </section>
 
-<!-- SCREEN 7: TITLE + DETAILS -->
 <section class="screen rave" id="screen7">
   <div class="sparkle" style="left:10%;top:20%">✦</div>
   <div class="sparkle" style="right:12%;top:25%;animation-delay:1s">★</div>
@@ -153,7 +348,6 @@ opacity:.25;
   <button onclick="goTo('screen7','screen8')">RSVP</button>
 </section>
 
-<!-- SCREEN 8: RSVP -->
 <section class="screen rave rsvp" id="screen8">
   <div class="neon-title">RSVP</div>
   <button onclick="response('yes')">I WILL BE IN ATTENDANCE</button>
@@ -205,8 +399,42 @@ function flashGoTo(from,to){
   setTimeout(()=>goTo(from,to),350);
 }
 
+function typeSpeech(){
+  const speechText=document.getElementById("speechText");
+  const dramaticLine=document.getElementById("dramaticLine");
+
+  const message=
+    "Hey guys! Elise here.\n\n"+
+    "First of all, that was hard to watch.\n\n"+
+    "I really appreciate how patient you were with me through... all of that.\n\n"+
+    "As many of you know, this has been a very long era.\n\n"+
+    "To celebrate surviving it — and finally listening — I’m throwing a party with all my favorite people.\n\n"+
+    "And yes.";
+
+  speechText.innerHTML="";
+  dramaticLine.innerHTML="";
+  dramaticLine.classList.remove("show");
+
+  let i=0;
+
+  const interval=setInterval(()=>{
+    const char=message.charAt(i);
+    speechText.innerHTML+=char==="\n" ? "<br>" : char;
+    i++;
+
+    if(i>=message.length){
+      clearInterval(interval);
+      setTimeout(()=>{
+        dramaticLine.innerHTML="you were right.";
+        dramaticLine.classList.add("show");
+      },900);
+    }
+  },32);
+}
+
 function response(choice){
   const text=document.getElementById("responseText");
+
   if(choice==="yes"){
     text.innerHTML="excellent. your presence has been recorded.";
   }else if(choice==="maybe"){
